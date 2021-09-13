@@ -1,0 +1,8 @@
+**/logs
+*.log
+*.aux
+*.nav
+*.snm
+*.toc
+*.bbl
+*.blg

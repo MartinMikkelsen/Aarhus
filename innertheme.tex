@@ -1,14 +1,92 @@
-\documentclass{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\title{Test}
+\mode<presentation>
 
-\usetheme{texsx}
+\RequirePackage{tikz}
 
-\begin{document}
 
-\begin{frame}
-\titlepage
-\end{frame}
+% CUSTOMIZE STRUCTURE ELEMENTS. ------------------------------------------------
+\setbeamertemplate{blocks}[default]
 
-\end{document}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{subsection in toc}[square]
+
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+
+
+% STRUCTURE FRAME TEMPLATE DEFINITIONS. ----------------------------------------
+% Title page.
+\defbeamertemplate*{title page}{focus}{%
+    {\usebeamercolor{frametitle}\colorlet{focus@@temp}{bg}%
+        \begin{tikzpicture}[overlay, remember picture]
+            \fill[color=focus@@temp] (current page.north west) rectangle ([shift = {(0, -0.45\paperheight)}] current page.north east);
+        \end{tikzpicture}}
+    
+    \vspace{-1.65\baselineskip}
+    \begin{minipage}[b][0.35\paperheight]{\textwidth}
+        \vspace{\baselineskip}
+        \usebeamerfont{title}
+        \usebeamercolor[fg]{frametitle}
+        \inserttitle
+    \end{minipage}
+    
+    \begin{minipage}[t][0.1\paperheight]{\textwidth}
+        \usebeamerfont{subtitle}
+        \usebeamercolor[fg]{frametitle}
+        \insertsubtitle
+    \end{minipage}
+    
+    % Set the title graphic in a zero-height box, so that
+    % the position of other elements is not affected.
+    {\vfuzz=9999pt\vbox to 0pt {
+        \raggedleft
+        \inserttitlegraphic
+    }}
+    
+    \begin{minipage}[t]{\textwidth}
+        \usebeamerfont{author}
+        \insertauthor
+    \end{minipage}
+    
+    \vspace*{\baselineskip}
+    \begin{minipage}[t]{\textwidth}
+        \usebeamerfont{institute}
+        \insertinstitute
+    \end{minipage}
+    
+    \vspace*{\baselineskip}
+    \begin{minipage}[t]{\textwidth}
+        \usebeamerfont{date}{\insertdate}
+    \end{minipage}
+    
+    \vspace*{5\baselineskip}
+    
+    \addtocounter{framenumber}{-1}
+}
+
+% Section page.
+\defbeamertemplate*{section page}{focus}{%
+    {%
+        \usebeamercolor{frametitle}\colorlet{focus@@temp}{bg}%
+        \begin{tikzpicture}[overlay, remember picture]
+            \fill[color=focus@@temp] (current page.north west) rectangle ([shift = {(0, -0.45\paperheight)}] current page.north east);
+        \end{tikzpicture}%
+    }
+    
+    \vspace{-2\baselineskip}
+    \begin{minipage}[b][0.45\paperheight]{\textwidth}
+        \usebeamerfont{sectiontitle}
+        \usebeamercolor[fg]{frametitle}
+        \let\hyperlink\@secondoftwo\insertsection
+    \end{minipage}
+    
+    \begin{minipage}[t][0.55\paperheight]{\textwidth}
+    \end{minipage}
+}
+
+\AtBeginSection{%
+    \begin{frame}[plain, noframenumbering]{}
+        \sectionpage
+    \end{frame}%
+}
+
+\mode<all>
